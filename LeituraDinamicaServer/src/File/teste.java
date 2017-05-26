@@ -1,21 +1,35 @@
 package File;
+import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
 
 public class teste {
 	
 	public static void main(String args[]){
 		
-		String path = System.getProperty("user.dir");
-		path = path + "\\Texts";
+		//String path = System.getProperty("user.dir");
+		//path = path + "\\Texts";
 		
-		String newPath = path;
+		int path;
+		
+		JFileChooser chooseFile = new JFileChooser();
+		path = chooseFile.showOpenDialog(null);
+		
+		/*String newPath = path;
 		
 		char barra = '\'';
 		String novo = System.getProperty("file.separator");
 		
 		newPath.replace(barra,novo.charAt(0));
+		*/
 		
-		System.out.println(newPath);
-		
+		if(path == JFileChooser.APPROVE_OPTION) {
+			Reader newFile = new Reader();
+			newFile.open(chooseFile.getSelectedFile().getAbsolutePath());
+			ArrayList <String> lines = new ArrayList <>();
+			lines = newFile.read();
+			newFile.close();
+		}
 	}
 	
 }

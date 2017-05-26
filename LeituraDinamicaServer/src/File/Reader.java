@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Reader implements IFile {
 
@@ -13,25 +15,34 @@ public class Reader implements IFile {
 	
 	
 	public void open(String name){
-		String path = searchFile(name);
-		
+		//String path = searchFile();
 		try{
-			this.file = new File(path);
+			this.file = new File(name);
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 	
-	public void read(){
+	@SuppressWarnings("finally")
+	public ArrayList<String> read(){
 
+		ArrayList<String>lines = new ArrayList<String>();
+		
     	try{
     		this.fReader = new FileReader(this.file);
         	this.buffer = new BufferedReader(this.fReader);
+        	System.out.println("Consegui Abrir !");
+        	
+        	lines = readLines();
+        	
     	}
     	catch(FileNotFoundException e){
     		System.out.println("Nao abriu a bagaça :(");
 			e.printStackTrace();
+    	}
+    	finally {
+    		return lines;
     	}
 	}
 	
@@ -49,8 +60,9 @@ public class Reader implements IFile {
 		}
 	}
 	
+	// Private Methods
 	
-	private String searchFile(String name){
+	private String searchFile(){
 		String path = System.getProperty("user.dir");
 		path += "\\Texts";
 		path = formatPath(path);
@@ -69,4 +81,25 @@ public class Reader implements IFile {
 		return newPath;
 	}
 	
+	private ArrayList<String> readLines(){
+		ArrayList<String> lines = new ArrayList<>();
+		String line;
+		
+		try {
+			line = this.buffer.readLine();
+			
+			while(line != null) {
+				lines.add(line);
+				line = this.buffer.readLine();
+			}
+		
+		}
+		catch (IOException e) {
+			System.out.println("Não consgui ler a linha");
+			e.printStackTrace();
+		}
+		
+		
+		return lines;
+	}
 }

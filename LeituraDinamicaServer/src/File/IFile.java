@@ -1,12 +1,13 @@
 package File;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public interface IFile{
 	
 	public void open(String name);
 	
-	public void read();
+	public ArrayList<String> read();
 	
 	public void write(String text);
 	
