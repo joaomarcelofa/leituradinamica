@@ -1,8 +1,6 @@
 package File;
 import java.util.ArrayList;
 
-import javax.swing.JFileChooser;
-
 import textProcessor.WordProcessor;
 
 public class teste {
@@ -13,8 +11,13 @@ public class teste {
 		newFile.open("Texte.txt");
 		ArrayList <String> lines = new ArrayList <>();
 		lines = newFile.read();
-		WordProcessor processor = new WordProcessor();
-		processor.processFile(lines);
+		WordProcessor processor = new WordProcessor(lines);
+		
+		while(processor.getIsRunning()){
+			processor.processFile();
+			System.out.println(processor.getCurrentWord());
+		}
+		
 		newFile.close();
 		
 	}
