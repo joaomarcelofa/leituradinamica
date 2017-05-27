@@ -1,4 +1,4 @@
-package sendInformation;
+package textProcessor;
 
 import java.util.ArrayList;
 
@@ -8,19 +8,14 @@ public class WordProcessor {
 	private int wordCursor = 0;
 	
 	public void processFile(ArrayList<String> lines){
-		// Processar e atualizar cursor e linha
-		
 		for(String actualLine :  lines) {
 			manageLine(splitLine(actualLine));
 		}
-		
 	}
 	
 	private void manageLine(String splitedLine[]){
-		
 		for(String word: splitedLine) {
 			System.out.println(splitedLine[this.wordCursor]);
-			
 			advanceWord();
 		}
 		resetWordCursor();
