@@ -3,6 +3,8 @@ import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
+import sendInformation.WordProcessor;
+
 public class teste {
 	
 	public static void main(String args[]){
@@ -28,6 +30,8 @@ public class teste {
 			newFile.open(chooseFile.getSelectedFile().getAbsolutePath());
 			ArrayList <String> lines = new ArrayList <>();
 			lines = newFile.read();
+			WordProcessor processor = new WordProcessor();
+			processor.processFile(lines);
 			newFile.close();
 		}
 	}
