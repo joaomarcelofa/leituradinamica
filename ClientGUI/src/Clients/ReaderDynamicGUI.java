@@ -1,5 +1,6 @@
 package Clients;
 
+<<<<<<< HEAD
 import java.io.File;
 import java.util.ArrayList;
 
@@ -7,6 +8,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+=======
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+>>>>>>> master
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -16,7 +22,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+<<<<<<< HEAD
 import javafx.scene.shape.Path;
+=======
+>>>>>>> master
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -61,8 +70,13 @@ public class ReaderDynamicGUI {
 		return this.menuBar;
 	}
 	
+<<<<<<< HEAD
 	private CustomMenuItem createCustomMenuItem(ComboBox combo){
 		CustomMenuItem customMenuFileItem = new CustomMenuItem(combo);
+=======
+	private CustomMenuItem createCustomMenuItem(TextField txt){
+		CustomMenuItem customMenuFileItem = new CustomMenuItem(txt);
+>>>>>>> master
 		customMenuFileItem.setHideOnClick(false);
 		return customMenuFileItem;
 	}
@@ -72,6 +86,7 @@ public class ReaderDynamicGUI {
 		txt.setText("");	
 	}
 	
+<<<<<<< HEAD
 	private void readFilesPath(){
 		String pathh = searchFile();
 		//Path path = new Path();
@@ -127,6 +142,13 @@ public class ReaderDynamicGUI {
 		
 		
 		menuFile.getItems().add(createCustomMenuItem(fileCombo));
+=======
+	private Menu createMenuFile(){
+		
+		menuFile = new Menu("Search File");
+		fileTxt = new TextField("nome do arquivo");
+		menuFile.getItems().add(createCustomMenuItem(fileTxt));
+>>>>>>> master
 		
 		fileTxt.setOnMouseClicked(e->{
 			onMouseClicked(fileTxt);
@@ -147,7 +169,11 @@ public class ReaderDynamicGUI {
 		menuTime = new Menu("Insert Time");
 		timeTxt = new TextField("em milisegundos");
 		
+<<<<<<< HEAD
 		//menuTime.getItems().add(createCustomMenuItem(timeTxt));
+=======
+		menuTime.getItems().add(createCustomMenuItem(timeTxt));
+>>>>>>> master
 		
 		timeTxt.setOnMouseClicked(e->{ 
 			onMouseClicked(timeTxt);
