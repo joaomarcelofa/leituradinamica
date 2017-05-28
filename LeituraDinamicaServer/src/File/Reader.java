@@ -15,9 +15,8 @@ public class Reader implements IFile {
 	
 	
 	public void open(String name){
-		//String path = searchFile();
 		try{
-			this.file = new File(name);
+			this.file = new File(searchFile(name));
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -60,14 +59,13 @@ public class Reader implements IFile {
 		}
 	}
 	
-	// Private Methods
+	// ------------------------ Private Methods ------------------------
 	
-	private String searchFile(){
+	private String searchFile(String name){
 		String path = System.getProperty("user.dir");
-		path += "\\Texts";
+		path += "\\Texts\\";
+		path += name;
 		path = formatPath(path);
-		
-		System.out.println(path);
 		return path;
 	}
 	
@@ -84,7 +82,6 @@ public class Reader implements IFile {
 	private ArrayList<String> readLines(){
 		ArrayList<String> lines = new ArrayList<>();
 		String line;
-		
 		try {
 			line = this.buffer.readLine();
 			
@@ -92,14 +89,11 @@ public class Reader implements IFile {
 				lines.add(line);
 				line = this.buffer.readLine();
 			}
-		
 		}
 		catch (IOException e) {
 			System.out.println("Não consgui ler a linha");
 			e.printStackTrace();
 		}
-		
-		
 		return lines;
 	}
 }
