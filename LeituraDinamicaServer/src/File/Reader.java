@@ -63,11 +63,7 @@ public class Reader implements IFile {
 	
 	private String searchFile(String name){
 		String path = System.getProperty("user.dir");
-<<<<<<< HEAD
-		path += "\\Texts";
-=======
 		path += "\\Texts\\";
->>>>>>> master
 		path += name;
 		path = formatPath(path);
 		return path;
