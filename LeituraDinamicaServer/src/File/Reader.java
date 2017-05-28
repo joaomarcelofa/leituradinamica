@@ -62,21 +62,18 @@ public class Reader implements IFile {
 	
 	// Private Methods
 	
-	private String searchFile(){
+	private String searchFile(String name){
 		String path = System.getProperty("user.dir");
 		path += "\\Texts";
+		path += name;
 		path = formatPath(path);
-		
-		System.out.println(path);
 		return path;
 	}
 	
 	private String formatPath(String filePath){
 		String newPath = filePath;
-		
 		char barra = '\'';
 		String novo = System.getProperty("file.separator");
-		
 		newPath.replace(barra,novo.charAt(0));
 		return newPath;
 	}

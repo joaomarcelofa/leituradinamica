@@ -1,8 +1,12 @@
 package Clients;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -12,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -56,8 +61,8 @@ public class ReaderDynamicGUI {
 		return this.menuBar;
 	}
 	
-	private CustomMenuItem createCustomMenuItem(TextField txt){
-		CustomMenuItem customMenuFileItem = new CustomMenuItem(txt);
+	private CustomMenuItem createCustomMenuItem(ComboBox combo){
+		CustomMenuItem customMenuFileItem = new CustomMenuItem(combo);
 		customMenuFileItem.setHideOnClick(false);
 		return customMenuFileItem;
 	}
@@ -67,11 +72,61 @@ public class ReaderDynamicGUI {
 		txt.setText("");	
 	}
 	
+	private void readFilesPath(){
+		String pathh = searchFile();
+		//Path path = new Path();
+		//System.out.println("a pathh é: " + pathh);
+		
+		File directory = new File(pathh);
+        //get all the files from a directory
+		String[] names = directory.list();
+	    File[] fList = directory.listFiles();
+	    String tam = "" + names.length;
+	    System.out.println("tamanho: " + tam);
+	    /*for (File file : fList){
+	        if (file.isFile()){
+	            System.out.println(file.getName());
+	        }
+	    }*/		
+	}
+	
+
+	
+	
+	private String searchFile(){
+		String path = System.getProperty("user.dir");
+		path += "\\Texts";
+		path = formatPath(path);
+		return path;
+	}
+	
+	private String formatPath(String filePath){
+		String newPath = filePath;
+		char barra = '\'';
+		String novo = System.getProperty("file.separator");
+		newPath.replace(barra,novo.charAt(0));
+		return newPath;
+	}
+	
 	private Menu createMenuFile(){
 		
 		menuFile = new Menu("Search File");
+		ComboBox fileCombo = new ComboBox();
+		
+		readFilesPath();
+		
+		fileCombo.getItems().addAll(
+	            "jacob.smith@example.com",
+	            "isabella.johnson@example.com",
+	            "ethan.williams@example.com",
+	            "emma.jones@example.com",
+	            "michael.brown@example.com");
+		
 		fileTxt = new TextField("nome do arquivo");
-		menuFile.getItems().add(createCustomMenuItem(fileTxt));
+		
+		
+		
+		menuFile.getItems().add(createCustomMenuItem(fileCombo));
 		
 		fileTxt.setOnMouseClicked(e->{
 			onMouseClicked(fileTxt);
@@ -92,7 +147,7 @@ public class ReaderDynamicGUI {
 		menuTime = new Menu("Insert Time");
 		timeTxt = new TextField("em milisegundos");
 		
-		menuTime.getItems().add(createCustomMenuItem(timeTxt));
+		//menuTime.getItems().add(createCustomMenuItem(timeTxt));
 		
 		timeTxt.setOnMouseClicked(e->{ 
 			onMouseClicked(timeTxt);
