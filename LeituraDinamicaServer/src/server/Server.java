@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import File.Reader;
 import textProcessor.WordProcessor;
+import threads.Temporizador;
 
 public class Server {
 
@@ -21,17 +22,21 @@ public class Server {
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	
+	private Temporizador time;
+	
 	public static void main(String args[]) {
 		
 		Server myServer = new Server();		
-		myServer.run();
-		
+		myServer.run();	
 	}
 	
 	public void run() {
 		
 		this.newFile = new Reader();
 		this.newFile.open("Texte.txt");
+		
+		this.time = new Temporizador();
+		this.time.setTimer(1000);
 		
 		this.lines = new ArrayList <>();
 		this.lines = newFile.read();
@@ -89,16 +94,14 @@ public class Server {
 	}
 	
 	public void sendWord() {
-		synchronized(this.processor) {
-			try {
-				this.processor.processFile();
-				this.out.writeObject(this.processor.getCurrentWord());
-				this.out.flush();
-				Thread.sleep(500);
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
+		
+		try {
+			this.processor.processFile();
+			this.out.writeObject(this.processor.getCurrentWord());
+			this.out.flush();
+			
+		} catch(Exception e) {
+			
 		}
 	}
 	
