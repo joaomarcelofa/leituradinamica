@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.*;
 
 public class ClientSocket{
-	
 	Socket requestSocket;
 	ObjectOutputStream out;
  	ObjectInputStream in;
@@ -65,5 +64,6 @@ public class ClientSocket{
 			ioException.printStackTrace();
 		}
 	}
+	
 }
   

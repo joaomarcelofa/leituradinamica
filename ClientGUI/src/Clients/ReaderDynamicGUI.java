@@ -52,7 +52,7 @@ public class ReaderDynamicGUI {
 		painel.getChildren().addAll(createMenuBar(new MenuBar()), createPanel(new GridPane()));
 		
 		this.janela.setScene(cena);
-		this.janela.setTitle("Leitura Dinâmica");
+		this.janela.setTitle("Leitura Dinï¿½mica");
 		this.janela.show();
 	}
 	
@@ -129,8 +129,8 @@ public class ReaderDynamicGUI {
 		else{
 			message += ";" + timeTxt.getText();
 			menuConfig.hide();
-			ClientSocket client = new ClientSocket();
-			client.enviarDados("TESTANDO!!!");
+			//ClientSocket client = new ClientSocket();
+			//client.enviarDados("TESTANDO!!!");
 			//send the message to server 
 		}
 	}
