@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import File.Reader;
 import textProcessor.WordProcessor;
-import threads.Temporizador;
 
 public class Server {
 
@@ -22,22 +21,17 @@ public class Server {
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	
-	private Temporizador time;
-	
 	public static void main(String args[]) {
 		
 		Server myServer = new Server();		
 		myServer.run();	
 	}
 	
-	public void run() {
+	private void run() {
 		
 		this.newFile = new Reader();
 		this.newFile.open("Texte.txt");
-		
-		this.time = new Temporizador();
-		this.time.setTimer(1000);
-		
+
 		this.lines = new ArrayList <>();
 		this.lines = newFile.read();
 		this.processor = new WordProcessor(lines);
@@ -47,9 +41,7 @@ public class Server {
 			this.providerSocket = new ServerSocket(2000,10);
 			this.connection = new Socket();
 			
-			boolean isReading = false;
 			String received;
-			String send;
 			
 			System.out.println("Esperando o cliente se conectar !");
 			connection = providerSocket.accept();
@@ -60,22 +52,26 @@ public class Server {
 			this.out.flush();
 			
 			do {
-				
 				try {
-					
 					received = (String)in.readObject();
 					
-					if(received.equals("word")) {
-						sendWord();
-						isReading = processor.getIsRunning();
+					switch(received) {
+						case "word":{
+							sendWord();
+							break;
+						}
+						
+						case "stop":{
+							sendStop();
+							break;
+						}
 					}
 					
 				}
 				catch(Exception e) {
 					e.printStackTrace();
 				}
-				
-			}while(isReading);
+			}while(true);
 		}
 		
 		catch (IOException e) {
@@ -93,14 +89,26 @@ public class Server {
 		}
 	}
 	
-	public void sendWord() {
-		
+	private void sendWord() {
+		this.processor.processFile();
 		try {
-			this.processor.processFile();
 			this.out.writeObject(this.processor.getCurrentWord());
 			this.out.flush();
-			
-		} catch(Exception e) {
+		}
+		
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	private void sendStop() {
+		this.processor.reset();
+		try {
+			this.out.writeObject("");
+			this.out.flush();
+		}
+		
+		catch(Exception ex) {
 			
 		}
 	}

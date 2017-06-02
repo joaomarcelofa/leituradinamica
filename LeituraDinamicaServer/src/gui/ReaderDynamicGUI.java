@@ -2,7 +2,7 @@ package gui;
 
 import java.util.List;
 
-import client.ClientSocket;
+import client.Client;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -37,7 +37,7 @@ public class ReaderDynamicGUI {
 	private String message = "";
 	private List<String> files;
 	
-	private ClientSocket client;
+	private Client client;
 	
 	public void createView(Stage janela){
 		this.janela = janela;
@@ -55,7 +55,7 @@ public class ReaderDynamicGUI {
 		this.janela.setTitle("Leitura Din�mica");
 		this.janela.show();
 		
-		client = new ClientSocket();
+		client = new Client();
 		client.createConnection();
 	}
 	
@@ -171,19 +171,29 @@ public class ReaderDynamicGUI {
 		this.bttPlay = new Button("PLAY");
 		this.bttPlay.setMinWidth(70.0);
 		this.bttPlay.setOnAction(e->{
-			client.enviarDados("word");
+			String response = client.request("word");
+			
+			if(response.equals("x-x-x-x FIM x-x-x-x")) {
+				client.request("stop");
+			}
+			else{
+				this.visor.setText(response);
+			}
+			//Criar uma timeline nova para fazer as requisições periódicamente
 		});
 		
 		this.bttPause = new Button("PAUSE");
 		this.bttPause.setMinWidth(65.0);
 		this.bttPause.setOnAction(e->{
-			//onPauseButton();
+			// A Timeline é pausada, apenas isso
+			// timeline.pause();
 		});
 		
 		this.bttStop = new Button("STOP");
 		this.bttStop.setMinWidth(65.0);	
 		this.bttStop.setOnAction(e-> {
-			//onStopButton();
+			this.visor.setText(client.request("stop"));
+			// Mandar o codigo "stop" para o servidor
 		});
 		
 		this.bttContainer.setSpacing(10.0);

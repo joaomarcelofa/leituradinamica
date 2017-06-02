@@ -11,7 +11,6 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage janela) throws Exception {
-		System.out.println("oooi");
 		ReaderDynamicGUI view = new ReaderDynamicGUI();
 		view.createView(janela);
 	}

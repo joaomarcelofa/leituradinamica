@@ -9,11 +9,11 @@ public class WordProcessor {
 	private int lineLimit;
 	private int wordLimit;
 	
-	private boolean isRunning;
-	
 	private String[] actualLine;
 	private ArrayList<String> lines;
 	private String currentWord;
+	
+	private boolean isFinished;
 	
 	public void processFile(){
 		manageLine();
@@ -29,9 +29,29 @@ public class WordProcessor {
 		this.wordLimit = actualLine.length - 1;
 		this.lineLimit = lines.size() - 1;
 		
-		this.isRunning = true;
+		this.isFinished = false;
 	}
-
+	
+	public void reset(){
+		this.actualLine = splitLine(lines.get(0));
+		this.currentWord = "";
+		this.lineCursor = 0;
+		this.wordCursor = 0;
+		this.wordLimit = actualLine.length - 1;
+		this.lineLimit = lines.size() - 1;
+		this.isFinished = false;
+	}
+	
+	public String getCurrentWord() {
+		return this.currentWord;
+	}
+	
+	public boolean isFinished() {
+		return this.isFinished;
+	}
+	
+	// -------------------- PRIVATE METHODS --------------------
+	
 	
 	private void manageLine(){
 		
@@ -51,22 +71,12 @@ public class WordProcessor {
 				advanceWord();
 			}
 			else {
+				this.isFinished = true;
 				this.currentWord = "x-x-x-x FIM x-x-x-x";
-				isRunning = false;
 			}
 		}
 		
 	}
-	
-	public boolean getIsRunning() {
-		return this.isRunning;
-	}
-	
-	public String getCurrentWord() {
-		return this.currentWord;
-	}
-	
-	// -------------------- PRIVATE METHODS --------------------
 	
 	private String[] splitLine(String line){		
 		return line.split(" ");
