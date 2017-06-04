@@ -16,8 +16,5 @@ public class App extends Application {
 	}
 	
 	//close connection - not file
-	
-	
-
 }
 
