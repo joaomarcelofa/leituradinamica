@@ -78,7 +78,7 @@ public class WordProcessor {
 		
 	}
 	
-	private String[] splitLine(String line){		
+	private String[] splitLine(String line){
 		return line.split(" ");
 	}
 	

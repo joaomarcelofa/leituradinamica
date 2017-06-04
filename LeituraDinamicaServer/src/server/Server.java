@@ -22,27 +22,18 @@ public class Server {
 	private ObjectInputStream in;
 	
 	public static void main(String args[]) {
-		
-		Server myServer = new Server();		
-		myServer.run();	
+		Server myServer = new Server();
+		myServer.run();
 	}
 	
 	private void run() {
-		
 		this.newFile = new Reader();
-		this.newFile.open("Texte.txt");
-
-		this.lines = new ArrayList <>();
-		this.lines = newFile.read();
-		this.processor = new WordProcessor(lines);
-		
 		try {
 		
 			this.providerSocket = new ServerSocket(2000,10);
 			this.connection = new Socket();
 			
 			String received;
-			
 			System.out.println("Esperando o cliente se conectar !");
 			connection = providerSocket.accept();
 			System.out.println("YAY ! Chegou o cliente !");
@@ -54,26 +45,29 @@ public class Server {
 			do {
 				try {
 					received = (String)in.readObject();
-					
 					switch(received) {
-						case "word":{
+						case "word":
 							sendWord();
 							break;
-						}
 						
-						case "stop":{
+						case "stop":
 							sendStop();
 							break;
-						}
+						
+						case "begin":
+							loadComboBox();
+							break;
+						
+						default:
+							System.out.println(received);
+							getTitleText(received);
 					}
-					
 				}
 				catch(Exception e) {
 					e.printStackTrace();
 				}
 			}while(true);
 		}
-		
 		catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -107,10 +101,33 @@ public class Server {
 			this.out.writeObject("");
 			this.out.flush();
 		}
-		
 		catch(Exception ex) {
 			
 		}
 	}
 	
+	private void loadComboBox(){
+		try {
+			this.out.writeObject(this.newFile.searchFilesComboBox());
+			this.out.flush();
+		}
+		catch(Exception ex) {
+			System.out.println("Deu erro aqui!");
+		}
+	}
+	
+	private void getTitleText(String nameFile){
+		try{
+			System.out.println("entrou no getTitletText");
+			this.newFile.open(nameFile);
+			this.lines = new ArrayList <>();
+			this.lines = newFile.read();
+			this.processor = new WordProcessor(lines);
+			this.out.writeObject("");
+			this.out.flush();
+			
+		}catch(Exception ex){
+			System.out.println("erro em getTitleText");
+		}
+	}	
 }

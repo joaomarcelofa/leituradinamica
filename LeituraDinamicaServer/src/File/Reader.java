@@ -13,7 +13,6 @@ public class Reader implements IFile {
 	private FileReader fReader = null;
 	private BufferedReader buffer = null;
 	
-	
 	public void open(String name){
 		try{
 			this.file = new File(searchFile(name));
@@ -25,16 +24,13 @@ public class Reader implements IFile {
 	
 	@SuppressWarnings("finally")
 	public ArrayList<String> read(){
-
+		
 		ArrayList<String>lines = new ArrayList<String>();
 		
     	try{
     		this.fReader = new FileReader(this.file);
-        	this.buffer = new BufferedReader(this.fReader);
-        	System.out.println("Consegui Abrir !");
-        	
+        	this.buffer = new BufferedReader(this.fReader);        	
         	lines = readLines();
-        	
     	}
     	catch(FileNotFoundException e){
     		System.out.println("Nao abriu a bagaça :(");
@@ -47,6 +43,18 @@ public class Reader implements IFile {
 	
 	public void write(String text){
 		//Method not used
+	}
+	
+	public String searchFilesComboBox(){
+		String path = searchFile("");
+		String files = "";
+		File[] listfiles = new File(path).listFiles();
+		for (File file : listfiles) {
+		    if (file.isFile()) {
+		        files += file.getName() + ";";
+		    }
+		}
+		return files;
 	}
 
 	public void close(){
@@ -71,10 +79,8 @@ public class Reader implements IFile {
 	
 	private String formatPath(String filePath){
 		String newPath = filePath;
-		
 		char barra = '\'';
 		String novo = System.getProperty("file.separator");
-		
 		newPath.replace(barra,novo.charAt(0));
 		return newPath;
 	}

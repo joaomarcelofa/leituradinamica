@@ -1,8 +1,8 @@
 package gui;
 
-import java.util.List;
-
 import client.Client;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,6 +17,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import readerDynamic.ReaderDynamic;
 
 public class ReaderDynamicGUI {
 	
@@ -35,28 +37,34 @@ public class ReaderDynamicGUI {
 	private HBox bttContainer;
 	
 	private String message = "";
-	private List<String> files;
+	private String[] files;
+	private int tempo;
 	
 	private Client client;
+	private ReaderDynamic rd;
 	
 	public void createView(Stage janela){
 		this.janela = janela;
-		
+		createGUI();
+		createConnectionGUI();
+	}
+	
+	private void createGUI(){
 		VBox painel = new VBox();
 		BorderPane border = new BorderPane();
-		
 		border.setCenter(painel);
 		Scene cena = new Scene(border, 350, 130);
-	
 		painel.setSpacing(10.0);
 		painel.getChildren().addAll(createMenuBar(new MenuBar()), createPanel(new GridPane()));
-		
 		this.janela.setScene(cena);
-		this.janela.setTitle("Leitura Din�mica");
+		this.janela.setTitle("Leitura Din�mica");
 		this.janela.show();
-		
+	}
+	
+	private void createConnectionGUI(){
 		client = new Client();
 		client.createConnection();
+		loadComboBox();
 	}
 	
 	private MenuBar createMenuBar(MenuBar menuBar){
@@ -66,7 +74,7 @@ public class ReaderDynamicGUI {
 		this.menuBar.getMenus().addAll(menuConfig);
 		return this.menuBar;
 	}
-
+	
 	private CustomMenuItem createCustomComboBox(ComboBox<String> combo){
 		CustomMenuItem customMenuFileItem = new CustomMenuItem(combo);
 		customMenuFileItem.setHideOnClick(false);
@@ -76,7 +84,6 @@ public class ReaderDynamicGUI {
 	private ComboBox<String> createComboBox(ComboBox<String> combo){
 		this.combo = combo;
 		this.combo.setPromptText("Escolha um arquivo");
-		this.combo.getItems().addAll("Texte.txt", "Hello.txt", "gsuis, funfa.txt");
 		this.combo.setOnAction(e->{
 			onClickComboBox(this.combo);
 		});
@@ -84,21 +91,14 @@ public class ReaderDynamicGUI {
 	}
 	
 	private void onClickComboBox(ComboBox<String> combo){
-		message = files.get(combo.getSelectionModel().getSelectedIndex());
+		message = files[combo.getSelectionModel().getSelectedIndex()];
+		String str = client.request(message);
 	}
 	
-	/*private List<String> searchFiles(){
-		files = new ArrayList<String>();
-		Reader rd = new Reader();
-		String path = rd.searchFile("");
-		File[] listfiles = new File(path).listFiles();
-		for (File file : listfiles) {
-		    if (file.isFile()) {
-		        files.add(file.getName());
-		    }
-		}		
-		return files;
-	}*/
+	private void loadComboBox(){
+		files = client.request("begin").split(";");
+		this.combo.getItems().addAll(files);
+	}
 	
 	private Menu createMenuFile(){
 		menuFile = new Menu("Search File");
@@ -114,7 +114,7 @@ public class ReaderDynamicGUI {
 	
 	private TextField createTextField(){
 		timeTxt = new TextField("em milisegundos");
-		timeTxt.setOnMouseClicked(e->{ 
+		timeTxt.setOnMouseClicked(e->{
 			onMouseClicked(timeTxt);
 		});
 		timeTxt.setOnKeyPressed(e->{
@@ -130,13 +130,15 @@ public class ReaderDynamicGUI {
 			onMouseClicked(this.timeTxt);
 		}
 		else{
-			message += ";" + timeTxt.getText();
 			menuConfig.hide();
+			rd = new ReaderDynamic(client, visor);
+			rd.setTime(timeTxt.getText());
+			rd.setConfigsReaderDynamic();
 		}
 	}
 	
 	private void onMouseClicked(TextField txt){
-		txt.setText("");	
+		txt.setText("");
 	}
 	
 	private Menu createMenuTime(){
@@ -167,38 +169,32 @@ public class ReaderDynamicGUI {
 	private HBox createButtons(HBox bttContainer){
 		this.bttContainer = bttContainer;
 		
-		//create three buttons, play, pause and stop with event on each
 		this.bttPlay = new Button("PLAY");
 		this.bttPlay.setMinWidth(70.0);
 		this.bttPlay.setOnAction(e->{
-			String response = client.request("word");
-			
-			if(response.equals("x-x-x-x FIM x-x-x-x")) {
-				client.request("stop");
-			}
-			else{
-				this.visor.setText(response);
-			}
-			//Criar uma timeline nova para fazer as requisições periódicamente
+			rd.setTimelinePlay();
+			bttPlay.setText("PLAY");
 		});
 		
 		this.bttPause = new Button("PAUSE");
 		this.bttPause.setMinWidth(65.0);
 		this.bttPause.setOnAction(e->{
-			// A Timeline é pausada, apenas isso
-			// timeline.pause();
+			rd.setTimelinePause();
+			if (bttPlay.getText().equals("PLAY")){
+				bttPlay.setText("REINICIAR");
+			}
 		});
 		
 		this.bttStop = new Button("STOP");
 		this.bttStop.setMinWidth(65.0);	
 		this.bttStop.setOnAction(e-> {
 			this.visor.setText(client.request("stop"));
-			// Mandar o codigo "stop" para o servidor
+			rd.setTimelineStop();
+			bttPlay.setText("PLAY");
 		});
 		
 		this.bttContainer.setSpacing(10.0);
 		this.bttContainer.getChildren().addAll(bttPlay, bttPause, bttStop);
 		return this.bttContainer;
 	}
-
 }

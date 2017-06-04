@@ -2,6 +2,7 @@ package client;
 
 import java.io.*;
 import java.net.*;
+
 public class Client{
 	Socket requestSocket;
 	ObjectOutputStream out;
@@ -9,8 +10,7 @@ public class Client{
  	String message;
  	boolean isPlaying;
 	
-	public void createConnection()
-	{
+	public void createConnection(){
 		try {
 			requestSocket = new Socket("localhost", 2000);
 			System.out.println("Connected to localhost in port 2004");
@@ -22,8 +22,7 @@ public class Client{
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 	
 	public String request(String code){
@@ -33,15 +32,16 @@ public class Client{
 			this.out.writeObject(code);
 			this.out.flush();
 			message = (String)this.in.readObject();
-		} 
+		}
 		
 		catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("ioexception");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			message = "ERRO , N√ÉO CONSEGUI CONECTAR";
+			message = "ERRO , N√O CONSEGUI CONECTAR";
+			System.out.println("classnotfoundexception");
 		}
-		
 		return message;
 	}
 	
