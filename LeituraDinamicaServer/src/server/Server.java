@@ -1,10 +1,12 @@
 package server;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 import File.Reader;
@@ -58,10 +60,18 @@ public class Server {
 							loadComboBox();
 							break;
 						
+						case "close":
+							closeConnection();
+							break;
+						
 						default:
 							System.out.println(received);
 							getTitleText(received);
 					}
+				}
+				catch(SocketException e){
+					System.out.println("server ex");
+					break;
 				}
 				catch(Exception e) {
 					e.printStackTrace();
@@ -70,16 +80,6 @@ public class Server {
 		}
 		catch (IOException e) {
 			e.printStackTrace();
-		}
-		finally {
-			try{
-				this.in.close();
-				this.out.close();
-				this.providerSocket.close();
-			}
-			catch(IOException ioException){
-				ioException.printStackTrace();
-			}
 		}
 	}
 	
@@ -116,9 +116,22 @@ public class Server {
 		}
 	}
 	
+	private void closeConnection() throws IOException{
+		try{
+			this.providerSocket.close();
+			this.out.writeObject("closing");
+			this.out.flush();
+			this.in.close();
+			this.out.close();
+		}
+		catch(Exception ex){
+			System.out.println("exception server");
+		}
+		
+	}
+	
 	private void getTitleText(String nameFile){
 		try{
-			System.out.println("entrou no getTitletText");
 			this.newFile.open(nameFile);
 			this.lines = new ArrayList <>();
 			this.lines = newFile.read();
