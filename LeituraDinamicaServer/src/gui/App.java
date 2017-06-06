@@ -14,10 +14,6 @@ public class App extends Application {
 		ReaderDynamicGUI view = new ReaderDynamicGUI();
 		view.createView(janela);
 	}
-	
-	//close connection - not file
-	
-	
 
 }
 

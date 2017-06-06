@@ -57,7 +57,7 @@ public class ReaderDynamicGUI {
 		painel.setSpacing(10.0);
 		painel.getChildren().addAll(createMenuBar(new MenuBar()), createPanel(new GridPane()));
 		this.janela.setScene(cena);
-		this.janela.setTitle("Leitura Dinâmica");
+		this.janela.setTitle("Leitura Dinï¿½mica");
 		this.janela.show();
 	}
 	
@@ -92,7 +92,7 @@ public class ReaderDynamicGUI {
 	
 	private void onClickComboBox(ComboBox<String> combo){
 		message = files[combo.getSelectionModel().getSelectedIndex()];
-		String str = client.request(message);
+		client.request(message);
 	}
 	
 	private void loadComboBox(){
@@ -126,15 +126,10 @@ public class ReaderDynamicGUI {
 	}
 	
 	private void onKeyPressedTextfield(){
-		if (message == null){
-			onMouseClicked(this.timeTxt);
-		}
-		else{
-			menuConfig.hide();
-			rd = new ReaderDynamic(client, visor);
-			rd.setTime(timeTxt.getText());
-			rd.setConfigsReaderDynamic();
-		}
+		menuConfig.hide();
+		rd = new ReaderDynamic(client, visor);
+		rd.setTime(timeTxt.getText());
+		rd.setConfigsReaderDynamic();
 	}
 	
 	private void onMouseClicked(TextField txt){

@@ -15,31 +15,36 @@ public class WordProcessor {
 	
 	private boolean isFinished;
 	
+	/* 
+	 * The server will not receive empty file
+	 * The pre-condition is : Someone will upload a valid file 
+	*/
+	
 	public void processFile(){
 		manageLine();
 	}
 	
 	public WordProcessor(ArrayList <String> lines){
 		this.lines = lines;
-		this.actualLine = splitLine(lines.get(0));
+		this.actualLine  = splitLine(lines.get(0));
 		this.currentWord = "";
 		
 		this.lineCursor = 0;
 		this.wordCursor = 0;
-		this.wordLimit = actualLine.length - 1;
-		this.lineLimit = lines.size() - 1;
+		this.wordLimit  = actualLine.length - 1;
+		this.lineLimit  = lines.size() - 1;
 		
 		this.isFinished = false;
 	}
 	
 	public void reset(){
-		this.actualLine = splitLine(lines.get(0));
+		this.actualLine  = splitLine(lines.get(0));
 		this.currentWord = "";
-		this.lineCursor = 0;
-		this.wordCursor = 0;
-		this.wordLimit = actualLine.length - 1;
-		this.lineLimit = lines.size() - 1;
-		this.isFinished = false;
+		this.lineCursor  = 0;
+		this.wordCursor  = 0;
+		this.wordLimit   = actualLine.length - 1;
+		this.lineLimit   = lines.size() - 1;
+		this.isFinished  = false;
 	}
 	
 	public String getCurrentWord() {
@@ -71,7 +76,7 @@ public class WordProcessor {
 				advanceWord();
 			}
 			else {
-				this.isFinished = true;
+				this.isFinished  = true;
 				this.currentWord = "x-x-x-x FIM x-x-x-x";
 			}
 		}

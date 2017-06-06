@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 import File.Reader;
@@ -63,23 +64,32 @@ public class Server {
 							getTitleText(received);
 					}
 				}
-				catch(Exception e) {
+				catch (SocketException exception) {
+					closeConnection();
+				}
+				catch (Exception e) {
 					e.printStackTrace();
 				}
+				
 			}while(true);
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
 		finally {
-			try{
-				this.in.close();
-				this.out.close();
-				this.providerSocket.close();
-			}
-			catch(IOException ioException){
-				ioException.printStackTrace();
-			}
+			closeConnection();
+		}
+	}
+	
+	
+	private void closeConnection() {
+		try{
+			this.in.close();
+			this.out.close();
+			this.providerSocket.close();
+		}
+		catch(IOException ioException){
+			ioException.printStackTrace();
 		}
 	}
 	
@@ -118,7 +128,6 @@ public class Server {
 	
 	private void getTitleText(String nameFile){
 		try{
-			System.out.println("entrou no getTitletText");
 			this.newFile.open(nameFile);
 			this.lines = new ArrayList <>();
 			this.lines = newFile.read();
@@ -127,7 +136,7 @@ public class Server {
 			this.out.flush();
 			
 		}catch(Exception ex){
-			System.out.println("erro em getTitleText");
+			ex.printStackTrace();
 		}
 	}	
 }

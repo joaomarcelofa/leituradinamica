@@ -29,6 +29,8 @@ public class ReaderDynamic {
 			String response = this.client.request("word");
 			if(response.equals("x-x-x-x FIM x-x-x-x")) {
 				this.client.request("stop");
+				this.timeline.stop();
+				this.visor.setText("");
 			}
 			else{
 				this.visor.setText(response);
