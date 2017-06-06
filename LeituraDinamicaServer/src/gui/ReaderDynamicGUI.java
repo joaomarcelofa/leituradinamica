@@ -182,14 +182,14 @@ public class ReaderDynamicGUI {
 		this.bttPlay = new Button("PLAY");
 		this.bttPlay.setMinWidth(70.0);
 		this.bttPlay.setOnAction(e->{
-			rd.setTimelinePlay();
+			rd.play();
 			bttPlay.setText("PLAY");
 		});
 		
 		this.bttPause = new Button("PAUSE");
 		this.bttPause.setMinWidth(65.0);
 		this.bttPause.setOnAction(e->{
-			rd.setTimelinePause();
+			rd.pause();
 			if (bttPlay.getText().equals("PLAY")){
 				bttPlay.setText("REINICIAR");
 			}
@@ -199,7 +199,7 @@ public class ReaderDynamicGUI {
 		this.bttStop.setMinWidth(65.0);	
 		this.bttStop.setOnAction(e-> {
 			this.visor.setText(client.request("stop"));
-			rd.setTimelineStop();
+			rd.stop();
 			bttPlay.setText("PLAY");
 		});
 		
