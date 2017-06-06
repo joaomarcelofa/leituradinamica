@@ -20,6 +20,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import readerDynamic.ReaderDynamic;
 
+/**
+ * @author Joao
+ * @version 0.1
+ */
 public class ReaderDynamicGUI {
 	
 	private Stage janela;
