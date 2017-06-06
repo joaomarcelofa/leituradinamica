@@ -196,4 +196,10 @@ public class ReaderDynamicGUI {
 		this.bttContainer.getChildren().addAll(bttPlay, bttPause, bttStop);
 		return this.bttContainer;
 	}
+	
+	public void closeView(){
+		System.out.println(client.request("close"));
+
+		client.closeConnection();
+	}
 }

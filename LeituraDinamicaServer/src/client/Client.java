@@ -33,12 +33,9 @@ public class Client{
 			this.out.flush();
 			message = (String)this.in.readObject();
 		}
-		
 		catch (IOException e) {
-			e.printStackTrace();
 			System.out.println("ioexception");
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 			message = "ERRO , NÃO CONSEGUI CONECTAR";
 			System.out.println("classnotfoundexception");
 		}
