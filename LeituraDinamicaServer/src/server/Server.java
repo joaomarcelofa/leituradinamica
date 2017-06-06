@@ -83,9 +83,7 @@ public class Server {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
 	private void sendWord() {
 		this.processor.processFile();
 		try {

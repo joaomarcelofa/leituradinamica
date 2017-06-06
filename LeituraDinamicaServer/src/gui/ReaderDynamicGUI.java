@@ -53,6 +53,8 @@ public class ReaderDynamicGUI {
 		createConnectionGUI();
 	}
 	
+	// -------------------- GUI METHODS --------------------
+	
 	private void createGUI(){
 		VBox painel = new VBox();
 		BorderPane border = new BorderPane();
@@ -63,12 +65,6 @@ public class ReaderDynamicGUI {
 		this.janela.setScene(cena);
 		this.janela.setTitle("Leitura Din�mica");
 		this.janela.show();
-	}
-	
-	private void createConnectionGUI(){
-		client = new Client();
-		client.createConnection();
-		loadComboBox();
 	}
 	
 	private MenuBar createMenuBar(MenuBar menuBar){
@@ -92,16 +88,6 @@ public class ReaderDynamicGUI {
 			onClickComboBox(this.combo);
 		});
 		return this.combo;
-	}
-	
-	private void onClickComboBox(ComboBox<String> combo){
-		message = files[combo.getSelectionModel().getSelectedIndex()];
-		client.request(message);
-	}
-	
-	private void loadComboBox(){
-		files = client.request("begin").split(";");
-		this.combo.getItems().addAll(files);
 	}
 	
 	private Menu createMenuFile(){
@@ -129,17 +115,6 @@ public class ReaderDynamicGUI {
 		return timeTxt;
 	}
 	
-	private void onKeyPressedTextfield(){
-		menuConfig.hide();
-		rd = new ReaderDynamic(client, visor);
-		rd.setTime(timeTxt.getText());
-		rd.setConfigsReaderDynamic();
-	}
-	
-	private void onMouseClicked(TextField txt){
-		txt.setText("");
-	}
-	
 	private Menu createMenuTime(){
 		menuTime = new Menu("Insert Time");
 		menuTime.getItems().add(createCustomTextField(createTextField()));
@@ -164,7 +139,43 @@ public class ReaderDynamicGUI {
 		this.visor.setFont(Font.font(18));
 		return this.visor;
 	}
-
+	
+	// -------------------- CONNECTION METHODS --------------------
+	
+	private void createConnectionGUI(){
+		client = new Client();
+		client.createConnection();
+		loadComboBox();
+	}
+	
+	public void closeView(){
+		System.out.println(client.request("close"));
+		client.closeConnection();
+	}
+	
+	// -------------------- ACTION METHODS --------------------
+	
+	private void onKeyPressedTextfield(){
+		menuConfig.hide();
+		rd = new ReaderDynamic(client, visor);
+		rd.setTime(timeTxt.getText());
+		rd.setConfigsReaderDynamic();
+	}
+	
+	private void onMouseClicked(TextField txt){
+		txt.setText("");
+	}
+	
+	private void loadComboBox(){
+		files = client.request("begin").split(";");
+		this.combo.getItems().addAll(files);
+	}
+	
+	private void onClickComboBox(ComboBox<String> combo){
+		message = files[combo.getSelectionModel().getSelectedIndex()];
+		client.request(message);
+	}
+	
 	private HBox createButtons(HBox bttContainer){
 		this.bttContainer = bttContainer;
 		
@@ -196,10 +207,5 @@ public class ReaderDynamicGUI {
 		this.bttContainer.getChildren().addAll(bttPlay, bttPause, bttStop);
 		return this.bttContainer;
 	}
-	
-	public void closeView(){
-		System.out.println(client.request("close"));
 
-		client.closeConnection();
-	}
 }
