@@ -14,9 +14,8 @@ public class ReaderDynamic {
 	private TextField visor;
 	private boolean alreadyExists;
 	
-	public ReaderDynamic(Client client, TextField visor) {
+	public ReaderDynamic(Client client) {
 		this.client        = client;
-		this.visor         = visor;
 		this.alreadyExists = false;
 	}
 
@@ -24,13 +23,12 @@ public class ReaderDynamic {
 		this.tempo = Integer.parseInt(time);
 	}
 	
+	public void setVisor(TextField visor){
+		this.visor = visor;
+	}
+	
 	public void setConfigsReaderDynamic(){
-		if(this.alreadyExists) {
-			alterTimeline();
-		}
-		else {
-			createNewTimeline();
-		}
+		createNewTimeline();
 	}
 
 	public void play() {
@@ -49,10 +47,10 @@ public class ReaderDynamic {
 	// -------------------- PRIVATE METHODS --------------------
 	
 	private void createNewTimeline() {
+		this.alreadyExists = true;
 		this.timeline = new Timeline();
 		this.timeline.setCycleCount(Timeline.INDEFINITE);
 		this.timeline.getKeyFrames().add(setDuration());
-		this.alreadyExists = true;
 	}
 	
 	private void alterTimeline() {
