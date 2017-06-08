@@ -5,12 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
-import readerDynamic.ReaderDynamic;
+import readerDynamic.DynamicReader;
 
-public class ControllerGUI {
+public class EventManager {
 	
 	private Client client;
-	public ReaderDynamic rd;
+	public DynamicReader rd;
 	
 	private String message = "";
 	private String[] files;
@@ -32,14 +32,14 @@ public class ControllerGUI {
 	}
 	
 	
-	// --------------- ReaderDynamic Methods ---------------
+	// --------------- DynamicReader Methods ---------------
 	
-	public void createReaderDdynamic(){
-		this.rd = new ReaderDynamic(client);
+	public void createReaderDynamic(){
+		this.rd = new DynamicReader(client);
 	}
 	
 	
-	// --------------- MenuConfig Methods ---------------
+	// --------------- MenuManager Methods ---------------
 	
 	public void onClickComboBox(ComboBox<String> combo){
 		message = files[combo.getSelectionModel().getSelectedIndex()];
@@ -53,9 +53,8 @@ public class ControllerGUI {
 
 	public void onKeyPressedTextfield(Menu menuConfig, String timeTxt){
 		menuConfig.hide();
-		if (this.rd == null) System.out.println("é nhull");
 		this.rd.setTime(timeTxt);
-		this.rd.setConfigsReaderDynamic();
+		this.rd.prepareDynamicReader();
 	}
 	
 	public void onMouseClicked(TextField txt){

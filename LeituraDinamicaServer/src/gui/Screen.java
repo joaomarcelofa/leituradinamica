@@ -8,20 +8,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-public class ReaderDynamicGUI {
+public class Screen {
 	
 	private Stage janela;
 	
-	private ControllerGUI controller;
+	private EventManager manager;
 	
 	// -------------------- CONSTRUTOR --------------------
 	
 	public void createView(Stage janela){
 		this.janela = janela;
 		
-		this.controller = new ControllerGUI();
-		this.controller.createConnectionGUI();
-		this.controller.createReaderDdynamic();
+		this.manager = new EventManager();
+		this.manager.createConnectionGUI();
+		this.manager.createReaderDynamic();
 		
 		createGUI();
 	}
@@ -31,27 +31,31 @@ public class ReaderDynamicGUI {
 	private void createGUI(){
 		VBox painel = new VBox();
 		BorderPane border = new BorderPane();
+		
 		border.setCenter(painel);
+		
 		Scene cena = new Scene(border, 350, 130);
+		
 		painel.setSpacing(10.0);
 		painel.getChildren().addAll(createMenuConfig(), createPanel());
+		
 		this.janela.setScene(cena);
-		this.janela.setTitle("Leitura Dinâmica");
+		this.janela.setTitle("Leitura Dinï¿½mica");
 		this.janela.show();
 	}
 	
 	private MenuBar createMenuConfig(){
-		MenuConfig menu = new MenuConfig(controller);
+		MenuManager menu = new MenuManager(manager);
 		return menu.createMenuBar(new MenuBar());
 	}
 	
 	private GridPane createPanel(){
-		Panel panel = new Panel(controller);
+		Panel panel = new Panel(manager);
 		return panel.createPanel(new GridPane());
 	}
 		
 	public void closeView(){
-		this.controller.closeView();
+		this.manager.closeView();
 	}
 	
 }

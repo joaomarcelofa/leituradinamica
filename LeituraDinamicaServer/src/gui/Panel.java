@@ -13,11 +13,11 @@ public class Panel  {
 	private TextField visor;
 	private HBox bttContainer;	
 
-	private ControllerGUI controller;
+	private EventManager manager;
 	
-	public Panel(ControllerGUI controller) {
+	public Panel(EventManager manager) {
 		super();
-		this.controller = controller;
+		this.manager = manager;
 	}
 	
 	
@@ -40,7 +40,7 @@ public class Panel  {
 		this.visor.setAlignment(Pos.CENTER_RIGHT);
 		this.visor.setFont(Font.font(18));
 		
-		controller.setVisor(this.visor);
+		manager.setVisor(this.visor);
 		
 		return this.visor;
 	}
@@ -54,19 +54,19 @@ public class Panel  {
 		Button bttPlay = new Button("PLAY");
 		bttPlay.setMinWidth(70.0);
 		bttPlay.setOnAction(e->{
-			controller.onPlay(bttPlay);
+			manager.onPlay(bttPlay);
 		});
 		
 		Button bttPause = new Button("PAUSE");
 		bttPause.setMinWidth(65.0);
 		bttPause.setOnAction(e->{
-			controller.onPause(bttPlay);
+			manager.onPause(bttPlay);
 		});
 		
 		Button bttStop = new Button("STOP");
 		bttStop.setMinWidth(65.0);	
 		bttStop.setOnAction(e-> {
-			controller.onStop(this.visor, bttPlay);
+			manager.onStop(this.visor, bttPlay);
 		});
 		
 		this.bttContainer.setSpacing(10.0);

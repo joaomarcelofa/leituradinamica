@@ -6,19 +6,18 @@ import javafx.animation.Timeline;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
-public class ReaderDynamic {
+public class DynamicReader {
 	
 	private int tempo;
 	private Timeline timeline;
 	private Client client;
 	private TextField visor;
 	
-	public ReaderDynamic(Client client) {
-		this.client        = client;
+	public DynamicReader(Client client) {
+		this.client = client;
 	}
 
 	public void setTime(String time){
-		System.out.println("time " + time);
 		this.tempo = Integer.parseInt(time);
 	}
 	
@@ -26,7 +25,7 @@ public class ReaderDynamic {
 		this.visor = visor;
 	}
 	
-	public void setConfigsReaderDynamic(){
+	public void prepareDynamicReader(){
 		createNewTimeline();
 	}
 
@@ -51,7 +50,7 @@ public class ReaderDynamic {
 	}
 	
 	private KeyFrame setDuration() {
-		System.out.println("passou aquiadsf   tempo " );
+		
 		KeyFrame keyFrame = new KeyFrame(Duration.millis(this.tempo), e->{
 			
 			String response = this.client.request("word");

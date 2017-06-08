@@ -6,7 +6,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 
-public class MenuConfig {
+public class MenuManager {
 
 	private MenuBar menuBar;
 	private Menu menuConfig;
@@ -16,11 +16,11 @@ public class MenuConfig {
 	private ComboBox<String> combo;
 	
 	
-	private ControllerGUI controller;
+	private EventManager manager;
 	
-	public MenuConfig(ControllerGUI controller) {
+	public MenuManager(EventManager manager) {
 		super();
-		this.controller = controller;
+		this.manager = manager;
 	}
 
 
@@ -44,9 +44,9 @@ public class MenuConfig {
 		this.combo = combo;
 		this.combo.setPromptText("Escolha um arquivo");
 		this.combo.setOnAction(e->{
-			controller.onClickComboBox(this.combo);
+			manager.onClickComboBox(this.combo);
 		});
-		combo.getItems().addAll(controller.loadComboBox());
+		combo.getItems().addAll(manager.loadComboBox());
 		return this.combo;
 	}
 		
@@ -66,12 +66,12 @@ public class MenuConfig {
 		timeTxt = new TextField("em milisegundos");
 		
 		timeTxt.setOnMouseClicked(e->{
-			controller.onMouseClicked(timeTxt);
+			manager.onMouseClicked(timeTxt);
 		});
 		
 		timeTxt.setOnKeyPressed(e->{
 			if(e.getCode().toString() == "ENTER"){
-				controller.onKeyPressedTextfield(menuConfig, timeTxt.getText());
+				manager.onKeyPressedTextfield(menuConfig, timeTxt.getText());
 			}
 		});
 		return timeTxt;
