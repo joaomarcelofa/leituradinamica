@@ -12,14 +12,13 @@ public class ReaderDynamic {
 	private Timeline timeline;
 	private Client client;
 	private TextField visor;
-	private boolean alreadyExists;
 	
 	public ReaderDynamic(Client client) {
 		this.client        = client;
-		this.alreadyExists = false;
 	}
 
 	public void setTime(String time){
+		System.out.println("time " + time);
 		this.tempo = Integer.parseInt(time);
 	}
 	
@@ -41,24 +40,18 @@ public class ReaderDynamic {
 
 	public void stop() {
 		this.timeline.stop();
-		this.alreadyExists = false;
 	}
 	
 	// -------------------- PRIVATE METHODS --------------------
 	
 	private void createNewTimeline() {
-		this.alreadyExists = true;
 		this.timeline = new Timeline();
 		this.timeline.setCycleCount(Timeline.INDEFINITE);
 		this.timeline.getKeyFrames().add(setDuration());
 	}
 	
-	private void alterTimeline() {
-		
-		System.out.println("Passei aqui !");
-	}
-	
 	private KeyFrame setDuration() {
+		System.out.println("passou aquiadsf   tempo " );
 		KeyFrame keyFrame = new KeyFrame(Duration.millis(this.tempo), e->{
 			
 			String response = this.client.request("word");

@@ -1,31 +1,23 @@
 package gui;
 
-import client.Client;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
-import readerDynamic.ReaderDynamic;
 
-public class Panel {
+public class Panel  {
 
 	private GridPane grid;
 	private TextField visor;
-	private Button bttPlay;
-	private Button bttPause;
-	private Button bttStop;
 	private HBox bttContainer;	
 
-	private Client client;
-	private ReaderDynamic rd;
+	private ControllerGUI controller;
 	
-	
-	public Panel(Client client, ReaderDynamic rd) {
+	public Panel(ControllerGUI controller) {
 		super();
-		this.client = client;
-		this.rd = rd;
+		this.controller = controller;
 	}
 	
 	
@@ -47,7 +39,9 @@ public class Panel {
 		this.visor.setStyle("-fx-text-alignment:left;-fx-text-fill: black");
 		this.visor.setAlignment(Pos.CENTER_RIGHT);
 		this.visor.setFont(Font.font(18));
-		rd.setVisor(this.visor);
+		
+		controller.setVisor(this.visor);
+		
 		return this.visor;
 	}
 	
@@ -57,28 +51,22 @@ public class Panel {
 	private HBox createButtons(HBox bttContainer){
 		this.bttContainer = bttContainer;
 		
-		this.bttPlay = new Button("PLAY");
-		this.bttPlay.setMinWidth(70.0);
-		this.bttPlay.setOnAction(e->{
-			rd.play();
-			bttPlay.setText("PLAY");
+		Button bttPlay = new Button("PLAY");
+		bttPlay.setMinWidth(70.0);
+		bttPlay.setOnAction(e->{
+			controller.onPlay(bttPlay);
 		});
 		
-		this.bttPause = new Button("PAUSE");
-		this.bttPause.setMinWidth(65.0);
-		this.bttPause.setOnAction(e->{
-			rd.pause();
-			if (bttPlay.getText().equals("PLAY")){
-				bttPlay.setText("REINICIAR");
-			}
+		Button bttPause = new Button("PAUSE");
+		bttPause.setMinWidth(65.0);
+		bttPause.setOnAction(e->{
+			controller.onPause(bttPlay);
 		});
 		
-		this.bttStop = new Button("STOP");
-		this.bttStop.setMinWidth(65.0);	
-		this.bttStop.setOnAction(e-> {
-			this.visor.setText(client.request("stop"));
-			rd.stop();
-			bttPlay.setText("PLAY");
+		Button bttStop = new Button("STOP");
+		bttStop.setMinWidth(65.0);	
+		bttStop.setOnAction(e-> {
+			controller.onStop(this.visor, bttPlay);
 		});
 		
 		this.bttContainer.setSpacing(10.0);

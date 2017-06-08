@@ -1,12 +1,10 @@
 package gui;
 
-import client.Client;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
-import readerDynamic.ReaderDynamic;
 
 public class MenuConfig {
 
@@ -17,17 +15,12 @@ public class MenuConfig {
 	private TextField timeTxt;
 	private ComboBox<String> combo;
 	
-	private String message = "";
-	private String[] files;
 	
-	private Client client;
-	private ReaderDynamic rd;
+	private ControllerGUI controller;
 	
-	
-	public MenuConfig(Client client, ReaderDynamic rd) {
+	public MenuConfig(ControllerGUI controller) {
 		super();
-		this.client = client;
-		this.rd = rd;
+		this.controller = controller;
 	}
 
 
@@ -51,9 +44,9 @@ public class MenuConfig {
 		this.combo = combo;
 		this.combo.setPromptText("Escolha um arquivo");
 		this.combo.setOnAction(e->{
-			onClickComboBox(this.combo);
+			controller.onClickComboBox(this.combo);
 		});
-		loadComboBox();
+		combo.getItems().addAll(controller.loadComboBox());
 		return this.combo;
 	}
 		
@@ -71,12 +64,14 @@ public class MenuConfig {
 	
 	private TextField createTextField(){
 		timeTxt = new TextField("em milisegundos");
+		
 		timeTxt.setOnMouseClicked(e->{
-			onMouseClicked(timeTxt);
+			controller.onMouseClicked(timeTxt);
 		});
+		
 		timeTxt.setOnKeyPressed(e->{
 			if(e.getCode().toString() == "ENTER"){
-				onKeyPressedTextfield();
+				controller.onKeyPressedTextfield(menuConfig, timeTxt.getText());
 			}
 		});
 		return timeTxt;
@@ -88,26 +83,4 @@ public class MenuConfig {
 		return menuTime;
 	}
 	
-
-	// -------------------- ACTION METHODS --------------------	
-	
-	private void onClickComboBox(ComboBox<String> combo){
-		message = files[combo.getSelectionModel().getSelectedIndex()];
-		client.request(message);
-	}
-	
-	private void onKeyPressedTextfield(){
-		menuConfig.hide();
-		rd.setTime(timeTxt.getText());
-		rd.setConfigsReaderDynamic();
-	}
-	
-	private void onMouseClicked(TextField txt){
-		txt.setText("");
-	}
-	
-	private void loadComboBox(){
-		files = client.request("begin").split(";");
-		this.combo.getItems().addAll(files);
-	}
 }

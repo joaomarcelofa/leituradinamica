@@ -1,29 +1,28 @@
 package gui;
 
-import client.Client;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import readerDynamic.ReaderDynamic;
 
 
 public class ReaderDynamicGUI {
 	
 	private Stage janela;
 	
-	private Client client;
-	private ReaderDynamic rd;
-	
+	private ControllerGUI controller;
 	
 	// -------------------- CONSTRUTOR --------------------
 	
 	public void createView(Stage janela){
 		this.janela = janela;
-		createConnectionGUI();
-		rd = new ReaderDynamic(client);
+		
+		this.controller = new ControllerGUI();
+		this.controller.createConnectionGUI();
+		this.controller.createReaderDdynamic();
+		
 		createGUI();
 	}
 	
@@ -42,26 +41,17 @@ public class ReaderDynamicGUI {
 	}
 	
 	private MenuBar createMenuConfig(){
-		MenuConfig menu = new MenuConfig(client, rd);
+		MenuConfig menu = new MenuConfig(controller);
 		return menu.createMenuBar(new MenuBar());
 	}
 	
 	private GridPane createPanel(){
-		Panel panel = new Panel(client, rd);
+		Panel panel = new Panel(controller);
 		return panel.createPanel(new GridPane());
 	}
-	
-	
-	// -------------------- CONNECTION METHODS --------------------
-	
-	private void createConnectionGUI(){
-		client = new Client();
-		client.createConnection();
-	}
-	
+		
 	public void closeView(){
-		System.out.println(client.request("close"));
-		client.closeConnection();
+		this.controller.closeView();
 	}
 	
 }
