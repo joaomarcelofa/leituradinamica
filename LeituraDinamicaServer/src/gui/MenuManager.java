@@ -12,17 +12,22 @@ public class MenuManager {
 	private Menu menuConfig;
 	private Menu menuFile;
 	private Menu menuTime;
-	private TextField timeTxt;
-	private ComboBox<String> combo;
-	
 	
 	private EventManager manager;
 	
 	public MenuManager(EventManager manager) {
 		super();
 		this.manager = manager;
+		this.manager.setMenu(this);
 	}
-
+	
+	public Menu getMenuFile(){
+		return this.menuFile;
+	}
+	
+	public Menu getMenuTime(){
+		return this.menuTime;
+	}
 
 	// -------------------- GUI METHODS --------------------
 	
@@ -41,13 +46,12 @@ public class MenuManager {
 	}
 	
 	private ComboBox<String> createComboBox(ComboBox<String> combo){
-		this.combo = combo;
-		this.combo.setPromptText("Escolha um arquivo");
-		this.combo.setOnAction(e->{
-			manager.onClickComboBox(this.combo);
+		combo.setPromptText("Escolha um arquivo");
+		combo.setOnAction(e->{
+			manager.onClickComboBox(combo);
 		});
 		combo.getItems().addAll(manager.loadComboBox());
-		return this.combo;
+		return combo;
 	}
 		
 	private Menu createMenuFile(){
@@ -62,16 +66,13 @@ public class MenuManager {
 		return customMenuFileItem;
 	}
 	
-	private TextField createTextField(){
-		timeTxt = new TextField("em milisegundos");
-		
+	private TextField createTextField(TextField timeTxt){
 		timeTxt.setOnMouseClicked(e->{
 			manager.onMouseClicked(timeTxt);
 		});
-		
 		timeTxt.setOnKeyPressed(e->{
 			if(e.getCode().toString() == "ENTER"){
-				manager.onKeyPressedTextfield(menuConfig, timeTxt.getText());
+				manager.onKeyPressedTextfield(menuConfig, timeTxt);
 			}
 		});
 		return timeTxt;
@@ -79,8 +80,8 @@ public class MenuManager {
 	
 	private Menu createMenuTime(){
 		menuTime = new Menu("Insert Time");
-		menuTime.getItems().add(createCustomTextField(createTextField()));
+		menuTime.setDisable(true);
+		menuTime.getItems().add(createCustomTextField(createTextField(new TextField("em milisegundos"))));
 		return menuTime;
 	}
-	
 }

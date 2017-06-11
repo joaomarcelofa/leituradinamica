@@ -11,13 +11,33 @@ public class Panel  {
 
 	private GridPane grid;
 	private TextField visor;
-	private HBox bttContainer;	
-
+	private Button bttPlay;
+	private Button bttPause;
+	private Button bttStop;
+	
 	private EventManager manager;
 	
 	public Panel(EventManager manager) {
 		super();
 		this.manager = manager;
+		this.manager.setPanel(this);
+	}
+	
+	public Button getButton(String name){
+		Button btt = new Button();
+		switch(name){
+			case "Play":
+				btt = this.bttPlay;
+				break;
+			case "Pause":
+				btt = this.bttPause;
+				break;
+			case "Stop":
+				btt = this.bttStop;
+				break;
+		}
+		
+		return btt;
 	}
 	
 	
@@ -40,7 +60,7 @@ public class Panel  {
 		this.visor.setAlignment(Pos.CENTER_RIGHT);
 		this.visor.setFont(Font.font(18));
 		
-		manager.setVisor(this.visor);
+		this.manager.setVisor(this.visor);
 		
 		return this.visor;
 	}
@@ -49,29 +69,31 @@ public class Panel  {
 	// -------------------- ACTION METHODS --------------------	
 	
 	private HBox createButtons(HBox bttContainer){
-		this.bttContainer = bttContainer;
 		
-		Button bttPlay = new Button("PLAY");
-		bttPlay.setMinWidth(70.0);
-		bttPlay.setOnAction(e->{
-			manager.onPlay(bttPlay);
+		this.bttPlay = createButton("PLAY", 70.0);
+		this.bttPlay.setOnAction(e->{
+			this.manager.onPlay(this.bttPlay);
 		});
 		
-		Button bttPause = new Button("PAUSE");
-		bttPause.setMinWidth(65.0);
-		bttPause.setOnAction(e->{
-			manager.onPause(bttPlay);
+		this.bttPause = createButton("PAUSE", 65.0);
+		this.bttPause.setOnAction(e->{
+			this.manager.onPause(this.bttPlay);
 		});
 		
-		Button bttStop = new Button("STOP");
-		bttStop.setMinWidth(65.0);	
-		bttStop.setOnAction(e-> {
-			manager.onStop(this.visor, bttPlay);
+		this.bttStop = createButton("STOP", 65.0);	
+		this.bttStop.setOnAction(e-> {
+			this.manager.onStop(this.visor, this.bttPlay);
 		});
 		
-		this.bttContainer.setSpacing(10.0);
-		this.bttContainer.getChildren().addAll(bttPlay, bttPause, bttStop);
-		return this.bttContainer;
+		bttContainer.setSpacing(10.0);
+		bttContainer.getChildren().addAll(this.bttPlay, this.bttPause, this.bttStop);
+		return bttContainer;
+	}
+	private Button createButton(String name, double size){
+		Button btt = new Button(name);
+		btt.setMinWidth(size);
+		btt.setDisable(true);
+		return btt;
 	}
 
 }

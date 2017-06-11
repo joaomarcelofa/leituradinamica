@@ -30,8 +30,8 @@ public class Screen {
 	
 	private void createGUI(){
 		VBox painel = new VBox();
-		BorderPane border = new BorderPane();
 		
+		BorderPane border = new BorderPane();
 		border.setCenter(painel);
 		
 		Scene cena = new Scene(border, 350, 130);
@@ -40,7 +40,7 @@ public class Screen {
 		painel.getChildren().addAll(createMenuConfig(), createPanel());
 		
 		this.janela.setScene(cena);
-		this.janela.setTitle("Leitura Din�mica");
+		this.janela.setTitle("Leitura Dinamica");
 		this.janela.show();
 	}
 	
@@ -56,6 +56,5 @@ public class Screen {
 		
 	public void closeView(){
 		this.manager.closeView();
-	}
-	
+	}	
 }
