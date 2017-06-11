@@ -9,9 +9,9 @@ import javafx.scene.control.TextField;
 public class MenuManager {
 
 	private MenuBar menuBar;
-	private Menu menuConfig;
-	private Menu menuFile;
-	private Menu menuTime;
+	private Menu 	menuConfig;
+	private Menu 	menuFile;
+	private Menu 	menuTime;
 	
 	private EventManager manager;
 	

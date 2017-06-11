@@ -9,12 +9,12 @@ import readerDynamic.DynamicReader;
 
 public class EventManager {
 	
-	private Client client;
-	public DynamicReader rd;
-	private Panel painel;
-	private MenuManager menu;
+	private Client 			client;
+	public  DynamicReader 	rd;
+	private Panel 			painel;
+	private MenuManager 	menu;
 	
-	private String message = "";
+	private String	 message = "";
 	private String[] files;
 	
 	// --------------- Setters of Panel and MenuManager ---------------
@@ -93,6 +93,7 @@ public class EventManager {
 	
 	public void onPause(Button bttPlay){
 		this.rd.pause();
+		//TODO : Remove or not ?
 		if (bttPlay.getText().equals("PLAY")){
 			bttPlay.setText("REINICIAR");
 			this.setMenuDisable("Pause");
