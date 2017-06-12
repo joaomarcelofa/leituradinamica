@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 
 public class Screen {
-	
+/*	
 	private Stage janela;
 	
 	private EventManager manager;
@@ -56,5 +56,6 @@ public class Screen {
 		
 	public void closeView(){
 		this.manager.closeView();
-	}	
+	}
+	*/
 }

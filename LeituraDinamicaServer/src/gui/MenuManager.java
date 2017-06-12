@@ -7,7 +7,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 
 public class MenuManager {
-
+/*
 	private MenuBar menuBar;
 	private Menu 	menuConfig;
 	private Menu 	menuFile;
@@ -84,4 +84,5 @@ public class MenuManager {
 		menuTime.getItems().add(createCustomTextField(createTextField(new TextField("em milisegundos"))));
 		return menuTime;
 	}
+	*/
 }

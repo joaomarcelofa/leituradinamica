@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 
 public class Panel  {
-
+/*
 	private GridPane grid;
 	private TextField visor;
 	private Button bttPlay;
@@ -95,5 +95,5 @@ public class Panel  {
 		btt.setDisable(true);
 		return btt;
 	}
-
+*/
 }

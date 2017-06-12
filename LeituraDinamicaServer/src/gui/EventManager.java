@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import readerDynamic.DynamicReader;
 
 public class EventManager {
-	
+/*	
 	private Client 			client;
 	public  DynamicReader 	rd;
 	private Panel 			painel;
@@ -131,4 +131,5 @@ public class EventManager {
 	private void setMenuTimeDisable(boolean bol){
 		this.menu.getMenuTime().setDisable(bol);
 	}
+	*/
 }

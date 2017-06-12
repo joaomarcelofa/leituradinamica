@@ -12,10 +12,7 @@ public class NewEventManager {
 
 	private Client 			client;
 	public  DynamicReader 	rd;
-	private Panel 			painel;
-	private MenuManager 	menu;
 	
-	private String	 message = "";
 	private String[] files;
 	
 	
@@ -24,9 +21,8 @@ public class NewEventManager {
 	public void createConnectionGUI(){
 		this.client = new Client();
 		this.client.createConnection();
-		this.files = this.client.request("begin").split(";");
 	}
-	
+
 	public void closeView(){
 		System.out.println(this.client.request("close"));
 		this.client.closeConnection();
@@ -41,12 +37,13 @@ public class NewEventManager {
 	
 	// --------------- Menu - ComboBox - File ---------------
 	
-	private void getItens(ComboBox<String> files) {
-	
+	public void updateComboBox(ComboBox<String> combo) {
+		this.files = this.client.request("begin").split(";");
+		combo.getItems().addAll(getItens());
 	}
 	
-	public void updateComboBox() {
-		
+	private String[] getItens() {
+		return this.files;
 	}
 	
 	// --------------- Set speed Event ---------------

@@ -40,8 +40,9 @@ public class Server {
 			System.out.println("Chegou o cliente !");
 			
 			this.out = new ObjectOutputStream(connection.getOutputStream());
-			this.in  = new ObjectInputStream(connection.getInputStream());
 			this.out.flush();
+			this.in  = new ObjectInputStream(connection.getInputStream());
+			
 			
 			do {
 				try {

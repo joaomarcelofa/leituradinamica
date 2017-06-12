@@ -8,8 +8,7 @@ public class Client{
 	ObjectOutputStream out;
  	ObjectInputStream in;
  	String message;
- 	boolean isPlaying;
-	
+ 	
 	public void createConnection(){
 		try {
 			requestSocket = new Socket("localhost", 2000);
@@ -36,7 +35,7 @@ public class Client{
 		catch (IOException e) {
 			System.out.println("ioexception");
 		} catch (ClassNotFoundException e) {
-			message = "ERRO , NÃO CONSEGUI CONECTAR";
+			message = "ERRO , Nï¿½O CONSEGUI CONECTAR";
 			System.out.println("classnotfoundexception");
 		}
 		return message;
@@ -45,6 +44,7 @@ public class Client{
 	public void closeConnection() {
 		try {
 			in.close();
+			out.flush();
 			out.close();
 			requestSocket.close();
 		}
