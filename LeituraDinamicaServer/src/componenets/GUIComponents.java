@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.PromptData;
 
 public class GUIComponents {
 
@@ -26,6 +27,7 @@ public class GUIComponents {
 	
 	private TextField visor;
 	private TextField speed;
+	private Button bttOk;
 	
 	private Button bttPlay;
 	private Button bttPause;
@@ -156,7 +158,7 @@ public class GUIComponents {
 	}
 	
 	private void configMenuBar() {
-		this.menuConfig = new Menu("Configuração");
+		this.menuConfig = new Menu("Configuracao");
 		this.menuConfig.getItems().addAll(this.menuFile,this.menuTime);
 		this.menuBar = new MenuBar();
 		this.menuBar.getMenus().addAll(this.menuConfig);	
@@ -181,17 +183,29 @@ public class GUIComponents {
 	
 	private void createMenuTime() {
 		this.menuTime = new Menu("Insert Time");
-		configTimeTextField();
-		this.menuTime.getItems().add(createCustomTextField());
+		this.menuTime.getItems().add(createCustomTimer());
 	}
 	
-	private CustomMenuItem createCustomTextField(){
-		CustomMenuItem customMenuFileItem = new CustomMenuItem(this.speed);
-		customMenuFileItem.setHideOnClick(false);
-		return customMenuFileItem;
+	private void configBttOk(){
+		this.bttOk = new Button("OK");
 	}
 	
 	private void configTimeTextField() {
 		this.speed = new TextField("Em milisegundos");
+	}
+	
+	private CustomMenuItem createCustomTimer(){
+		CustomMenuItem customMenuFileItem = new CustomMenuItem(createTimeContainer());
+		customMenuFileItem.setHideOnClick(false);
+		return customMenuFileItem;
+	}
+	
+	private HBox createTimeContainer(){
+		configBttOk();
+		configTimeTextField();
+		
+		HBox container = new HBox();
+		container.getChildren().addAll(this.speed, this.bttOk);
+		return container;
 	}
 }

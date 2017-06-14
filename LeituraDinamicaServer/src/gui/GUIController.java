@@ -23,6 +23,10 @@ public class GUIController {
 		janela.show();
 	}
 	
+	public void closeGUI(){
+		this.event.closeConnection();
+	}
+	
 	// --------------- Init Event ---------------
 	
 	private void init() {
@@ -34,10 +38,10 @@ public class GUIController {
 	
 	private void bindEvents() {
 		loadFiles();
-		/*
 		setTimer(); // Textfield
+		/*
 		makeTimeline(); // Fazer a Timeline 
-		configButtons(); // Setar os eventos dos bot√µes
+		configButtons(); // Setar os eventos dos botıes
 		configAlerts(); // Colocar os alerts
 		*/
 	}
@@ -46,11 +50,16 @@ public class GUIController {
 		event.updateComboBox(components.getCombo());
 	}
 	
+	private void setTimer(){
+		//Pegar o valor do textfield quando clica no bot„o
+		
+	}
+	
 	
 	/*
-	 * O controller ter√° uma inst√¢ncia de componentes e de eventos
-	 * A √∫nica coisa que ele faz √© cahamr os m√©todos da classe evento pra vincular
-	 * passando de par√¢metro os componentes que sao pedidos, que ser√£o obtidos da
+	 * O controller ter· uma inst‚ncia de componentes e de eventos
+	 * A ˙nica coisa que ele faz È cahamr os mÈtodos da classe evento pra vincular
+	 * passando de par‚metro os componentes que sao pedidos, que ser„o obtidos da
 	 * classe GUIComponents !
 	 */
 	

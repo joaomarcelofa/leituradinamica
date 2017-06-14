@@ -1,8 +1,8 @@
 package events;
 
 import client.Client;
-import gui.MenuManager;
-import gui.Panel;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -22,12 +22,11 @@ public class NewEventManager {
 		this.client = new Client();
 		this.client.createConnection();
 	}
-
-	public void closeView(){
+	
+	public void closeConnection(){
 		System.out.println(this.client.request("close"));
 		this.client.closeConnection();
 	}
-	
 	
 	// --------------- Setting DynamicReader ---------------
 	
@@ -48,8 +47,18 @@ public class NewEventManager {
 	
 	// --------------- Set speed Event ---------------
 	
-	public void setSpeed(TextField speedField) {
+	public void onClickOkButton(Button bttOk, TextField speedField){
+		bttOk.setOnAction(new EventHandler<ActionEvent>() {			
+			@Override
+			public void handle(ActionEvent event) {
+				setSpeed(speedField);
+				
+			}
+		});
+	}
 	
+	private void setSpeed(TextField speedField) {
+		this.rd.setTime(speedField.getText());
 	}
 	
 	// --------------- Mount Timeline ---------------
@@ -85,15 +94,15 @@ public class NewEventManager {
 	 * 
 	 * Setar a velocidade do Negocio para configurar a Timeline
 	 * 
-	 * Vincular o Play,Pause e Stop com os bot√µes (Podemos fazer isso depois de se
-	 * escolher a file, pq desabilitar os bot√µes passa a sensa√ß√£o que est√° algo 
+	 * Vincular o Play,Pause e Stop com os botıes (Podemos fazer isso depois de se
+	 * escolher a file, pq desabilitar os botıes passa a sensaÁ„o que est· algo 
 	 * errado, veja se concorda cmg )
 	 * 
-	 * Colocar os Alerts que eu fiz, mas √© depois de ter implementado tudo
+	 * Colocar os Alerts que eu fiz, mas È depois de ter implementado tudo
 	 * 
-	 * Possivelmente colocar o banco de Dados tbm, verei isso amanh√£ 12/06
+	 * Possivelmente colocar o banco de Dados tbm, verei isso amanh„ 12/06
 	 * 
-	 * Acho que √© s√≥ ! Vamos tentar separar os neg√≥cios
+	 * Acho que È sÛ ! Vamos tentar separar os negÛcios
 	 * */
 	
 }

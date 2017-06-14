@@ -90,7 +90,6 @@ public class Server {
 			this.out.writeObject(this.processor.getCurrentWord());
 			this.out.flush();
 		}
-		
 		catch(Exception ex) {
 			ex.printStackTrace();
 		}
