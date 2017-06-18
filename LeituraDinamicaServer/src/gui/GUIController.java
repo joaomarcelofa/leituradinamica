@@ -37,12 +37,15 @@ public class GUIController {
 	}
 	
 	private void bindEvents() {
-		loadFiles();
-		setTimer(); // Textfield
-		/*
-		makeTimeline(); // Fazer a Timeline 
-		configButtons(); // Setar os eventos dos botões
-		configAlerts(); // Colocar os alerts
+		loadFiles();            // load the file into the combo box
+		setFile();	            // event on combo box
+		setTimer();             // event on text field - submit the value
+		resetTimer();           // event on text field - clear the field
+		makeReaderDynamic();    // create the reader dynamic object 
+		setVisor();             // set visor to reader dynamic object
+		configButtons();        // set the events on the buttons
+		setMenu();              //set the menus to the event
+		/*configAlerts();       // Colocar os alerts
 		*/
 	}
 	
@@ -50,11 +53,35 @@ public class GUIController {
 		event.updateComboBox(components.getCombo());
 	}
 	
+	private void setFile(){
+		event.onClickFileCombo(components.getCombo());
+	}
 	private void setTimer(){
-		//Pegar o valor do textfield quando clica no botão
-		
+		event.onClickOkButton(components.getBttOk(), components.getSpeed(), components.getMenuConfig());
 	}
 	
+	private void resetTimer(){
+		event.onClickField(components.getSpeed());
+	}
+	
+	private void makeReaderDynamic(){
+		event.createReaderDynamic();
+	}
+	
+	private void setVisor(){
+		event.setVisorRD(components.getVisor());
+	}
+	
+	private void configButtons(){
+		event.setPlayEvent(components.getBttPlay());
+		event.setPauseEvent(components.getBttPause());
+		event.setStopEvent(components.getBttStop(), components.getVisor(), components.getSpeed());
+	}
+	
+	private void setMenu(){
+		event.setMenuTime(components.getMenuTime());
+		event.setMenuFile(components.getMenuFile());
+	}
 	
 	/*
 	 * O controller terá uma instância de componentes e de eventos

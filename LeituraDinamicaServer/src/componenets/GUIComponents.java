@@ -11,7 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.web.PromptData;
 
 public class GUIComponents {
 
@@ -28,7 +27,7 @@ public class GUIComponents {
 	private TextField visor;
 	private TextField speed;
 	private Button bttOk;
-	
+
 	private Button bttPlay;
 	private Button bttPause;
 	private Button bttStop;
@@ -84,6 +83,10 @@ public class GUIComponents {
 
 	public TextField getSpeed() {
 		return speed;
+	}
+	
+	public Button getBttOk() {
+		return bttOk;
 	}
 
 	public Button getBttPlay() {
