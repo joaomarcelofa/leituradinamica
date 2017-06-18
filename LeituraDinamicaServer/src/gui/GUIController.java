@@ -45,8 +45,6 @@ public class GUIController {
 		setVisor();             // set visor to reader dynamic object
 		configButtons();        // set the events on the buttons
 		setMenu();              //set the menus to the event
-		/*configAlerts();       // Colocar os alerts
-		*/
 	}
 	
 	private void loadFiles() {
@@ -76,18 +74,11 @@ public class GUIController {
 		event.setPlayEvent(components.getBttPlay());
 		event.setPauseEvent(components.getBttPause());
 		event.setStopEvent(components.getBttStop(), components.getVisor(), components.getSpeed());
+		event.setButtons(components.getBttPlay(), components.getBttPause(), components.getBttStop());
 	}
 	
 	private void setMenu(){
 		event.setMenuTime(components.getMenuTime());
 		event.setMenuFile(components.getMenuFile());
 	}
-	
-	/*
-	 * O controller terá uma instância de componentes e de eventos
-	 * A única coisa que ele faz é cahamr os métodos da classe evento pra vincular
-	 * passando de parâmetro os componentes que sao pedidos, que serão obtidos da
-	 * classe GUIComponents !
-	 */
-	
 }
