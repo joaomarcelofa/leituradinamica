@@ -1,3 +1,0 @@
-This is a valid file, i'm not empty.
-I'm writing this lines because i'm testing mey application. This application is a Client-server Dynamic Reader.
-This app will works fine when Joao put your magic hands on server code and he will instanciate a lot os server's instance. 

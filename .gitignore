@@ -1,5 +1,4 @@
 # Ignorando as subpastas
 .metadata/
 .recommenders/
-ClientServer/
-ClientGUI/
+RemoteSystemTempFiles/
