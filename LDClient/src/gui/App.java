@@ -3,6 +3,11 @@ package gui;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * Classe que inicia e fecha a aplicação. A partir dessa classe, é instanciada a classe 
+ * GUIController(), responsável pelo controle da aplicação. 
+ *
+ */
 public class App extends Application {
 	
 	GUIComponents gui;

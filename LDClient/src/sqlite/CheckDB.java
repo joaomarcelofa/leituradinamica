@@ -1,5 +1,6 @@
 package sqlite;
 
+
 public class CheckDB {
 
 	public static void main(String args[]) {

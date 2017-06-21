@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import File.Reader;
 import textProcessor.WordProcessor;
 
+/**
+ * A classe Server tem o papel de conectar o servidor a aplicação, utilizando o ServerSocket.
+ *
+ */
 public class Server {
 
 	private Reader newFile;

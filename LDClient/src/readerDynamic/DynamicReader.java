@@ -7,6 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
+/**
+ * Classe DynamicReader é responsável pela leitura dinamica e sua interação com o usuarios. Para
+ * isso, utiliza o recurso de Timeline que possiblita a criação de uma outra thread para as ações
+ * de uma leitura dinâmica, como: play, pause e stop.
+ *
+ */
 public class DynamicReader {
 	
 	private int tempo;

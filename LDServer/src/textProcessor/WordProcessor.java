@@ -2,6 +2,11 @@ package textProcessor;
 
 import java.util.ArrayList;
 
+/**
+ * A classe WordProcessor tem o papel de ler as linhas do texto e mandar palavra por palavra
+ * para o servidor, quando requisitado. 
+ *
+ */
 public class WordProcessor {
 	
 	private int lineCursor;
@@ -15,7 +20,7 @@ public class WordProcessor {
 	
 	private boolean isFinished;
 	
-	/* 
+	/**
 	 * The server will not receive empty file
 	 * The pre-condition is : Someone will upload a valid file 
 	*/

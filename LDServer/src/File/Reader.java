@@ -7,6 +7,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * A classe Reader que implementa a interface IFile implementa os métodos responsáveis para a 
+ * manipulação de arquivos, como: open(), read(), write() e close(). Além disso, há o método
+ * searchFilesComboBox que tem o papel de pegar todos os arquivos no diretório n prjeto e 
+ * listá-los no combobox da aplicação. Os demais métodos têm o papel de procurar determinado 
+ * arquivo na pasta do projeto, e ler as linhas desse arquivo selecionado.
+ *
+ */
 public class Reader implements IFile {
 
 	private File file = null;

@@ -4,6 +4,12 @@ import events.EventManager;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * A classe GUIController é responsável por iniciar o GUIComponents e EventManager, ou seja,
+ * iniciar a parte de interface grafica e seus eventos, além de fechar a aplicação. O método
+ * bindEvents() têm o papel de ligar os eventos aos componentes da GUI. 
+ *
+ */
 public class GUIController {
 
 	GUIComponents components;

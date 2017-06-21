@@ -4,6 +4,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import sqlite.SqLiteErrorLog;
 
+/**
+ * Classe ErrorAlert é responsável pelos erros que têm origem em exceções ou que têm origem 
+ *  com base nos requisitos. Aborda erros de conexão com BD, Server ou erros de configurações
+ *  da leitura dinâmica. Seu construtor instancia uma variável global log da classe SqLiteErrorLog,
+ *  e seu métodos têm a responsabilidade de criar um alerta, mostrá-lo e inserir o erro no banco de
+ *  dados através do log com base no erro capturado, e por fim, o método createAlert() fica responsável
+ *  por criar um alerta com o type e message de acordo com o erro.
+ */
 public class ErrorAlert{
 	
 	private SqLiteErrorLog log;

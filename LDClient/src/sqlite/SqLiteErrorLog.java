@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
+/**
+ * A classe SqLiteErrorLog é responsável por criar um BD e abrir e fechar a conexão com o BD. 
+ * Além disso, possui métodos de inserir, mostrar e limpar os registros. O BD só grava em seu BD
+ * os erros que podem ocorrer durante a execução da aplicação.
+ */
 public class SqLiteErrorLog {
 
 	private Connection connection = null;

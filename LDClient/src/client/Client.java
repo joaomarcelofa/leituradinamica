@@ -7,6 +7,12 @@ import java.net.Socket;
 
 import alerts.ErrorAlert;
 
+/**
+ * Classe Client é responsável pela conexão com a classe Server. Possui os métodos de 
+ * createConnection() e closeConnection(), que cria e fecha, respectivamente a conexão
+ * com o Server. Além disso, há o método request(), no qual retorna a mensagem recebida 
+ * que foi enviada pelo Server. *
+ */
 public class Client{
 	Socket requestSocket;
 	ObjectOutputStream out;

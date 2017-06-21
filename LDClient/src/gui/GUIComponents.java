@@ -12,6 +12,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * A classe GUIComponents é responsável por criar a interface gráfica da aplicação. Ela é separada
+ * em duas grandes partes: a criação do menu que determina as configurações para a leitura dinâmica,
+ * e a criação da painel que seria a parte de interação do usuário com a leitura dinâmica, utilizando 
+ * os botões de controle da leitura.
+ *
+ */
 public class GUIComponents {
 
 	private MenuBar menuBar;

@@ -8,6 +8,13 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
 import readerDynamic.DynamicReader;
 
+/**
+ * Classe EventManager é responsável por tratar os eventos da GUI, como o menu de configurações,
+ * o painel da leitura dinamica (os botões) e para mostrar quando há um erro proveniente de exceção
+ * ou de configuração da leitura dinâmica. Além disso, é responsável pelo gerenciamento da Timeline e
+ * assim da leitura dinâmica.
+ *
+ */
 public class EventManager {
 
 	private Client client;
